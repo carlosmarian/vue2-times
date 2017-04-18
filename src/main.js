@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Time } from './time';
 import _ from 'lodash';
+import './filters';
 
 require('style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
@@ -125,21 +126,13 @@ let appComponent = Vue.extend({
         return item.nome.indexOf(this.filter) >= 0;
       });
     }
-  },
-  filters: {
-    saldo(time) {
-      return time.gm - time.gs;
-    },
-    ucwords(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    }
   }
 });
 
 let meuVue = new Vue({
   el: '#app',
-  components :{
-    'app' : appComponent
+  components: {
+    'app': appComponent
   }
 
 });
