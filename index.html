@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>vue2</title>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div class="row">
+      <h3>{{titulo}}</h3>
+      <a class="btn btn-primary" @click.prevent="createNovoJogo">Novo jogo</a>
+      <br/><br/>
+      <div v-if="view == 'tabela'">
+        <input v-model="filter" type="text" class="form-control">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th v-for="coluna in colunas">
+                <a href="#" @click.prevent="sortBy(coluna)">{{coluna | ucwords}}</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="time in timesFiltered">
+              <td>
+                <img :src="time.escudo" alt="Escudo" style="height: 30px; width: 30px">
+                <strong>{{time.nome}}</strong> </td>
+              <td>{{time.pontos}}</td>
+              <td>{{time.gm}}</td>
+              <td>{{time.gs}}</td>
+              <td>{{time | saldo}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div v-if="view == 'novojogo'">
+        <form class="form-inline">
+          <div class="form-group">
+            <input v-model="novoJogo.casa.gols" type="text" class="form-control">
+            <label class="control-label">
+            {{novoJogo.casa.time.nome}}
+            <img :src="novoJogo.casa.time.escudo" style="height: 30px; width: 30px">
+          </label>
+          </div>
+          <span>X</span>
+          <div class="form-group">
+            <label class="control-label">
+            <img :src="novoJogo.fora.time.escudo" style="height: 30px; width: 30px">
+            {{novoJogo.fora.time.nome}}
+          </label>
+            <input v-model="novoJogo.fora.gols" type="text" class="form-control">
+          </div>
+          <button type="button" class="btn btn-primary" @click="fimJogo">Fim do Jogo</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/build.js"></script>
+</body>
+
+</html>
